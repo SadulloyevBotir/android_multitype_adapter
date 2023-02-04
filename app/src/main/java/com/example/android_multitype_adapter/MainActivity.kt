@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
                 list.add(User(false))
             }
         }
-        Toast.makeText(this, list.toString(), Toast.LENGTH_LONG).show()
         return list
     }
 }
