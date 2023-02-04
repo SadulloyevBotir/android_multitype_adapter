@@ -9,16 +9,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android_multitype_adapter.databinding.ItemRepositoriesBinding
 import com.example.android_multitype_adapter.databinding.ItemUserPremiumBinding
 
-class Adapter(var users: ArrayList<User>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var differ = AsyncListDiffer(this, DIFF_CALLBACK)
     private val TYPE_USER_FREE = 0
     private val TYPE_USER_PRO = 1
 
-    override fun getItemCount(): Int = users.size
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<User>() {
+            override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+                return oldItem == newItem
+            }
+        }
+
+    }
+
+    override fun getItemCount(): Int = differ.currentList.size
 
     override fun getItemViewType(position: Int): Int {
-        var user = users[position]
+        var user = differ.currentList[position]
         if (user.isPro) {
             return TYPE_USER_PRO
         }
@@ -50,19 +63,6 @@ class Adapter(var users: ArrayList<User>) : RecyclerView.Adapter<RecyclerView.Vi
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     }
 
-
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<User>() {
-            override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-                return oldItem == newItem
-            }
-
-            override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-                return oldItem == newItem
-            }
-        }
-
-    }
 
     private class AdapterTypeOneViewHolder(binding: ItemRepositoriesBinding) :
         RecyclerView.ViewHolder(binding.root)

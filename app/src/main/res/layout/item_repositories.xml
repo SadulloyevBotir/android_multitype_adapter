@@ -2,8 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:clickable="true"
+
     android:focusable="true"
     android:padding="10dp">
 
@@ -19,6 +21,7 @@
             android:layout_gravity="center_vertical"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/circle"
             android:src="@drawable/iv_image1" />
 
 
